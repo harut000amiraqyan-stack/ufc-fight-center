@@ -1,104 +1,60 @@
-const API_URL = "http://localhost:3000/api";
+const API_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://localhost:3000/api"
+        : "/api";
 
 
-// ============================================
-// ОБЩАЯ ФУНКЦИЯ ЗАПРОСА
-// ============================================
+async function apiRequest(endpoint, options = {}) {
+    const response = await fetch(`${API_URL}${endpoint}`, options);
 
-async function apiRequest(url) {
-
-    const response =
-        await fetch(url);
-
-    const data =
-        await response.json();
+    const data = await response.json();
 
     if (!response.ok) {
-
         throw new Error(
             data?.error ||
-            `Ошибка сервера: ${response.status}`
+            data?.message ||
+            `Ошибка API: ${response.status}`
         );
-
     }
 
     return data;
 }
 
 
-// ============================================
-// ПОИСК БОЙЦОВ
-// ============================================
-
 async function searchUFCFighters(name) {
-
-    const url =
-        `${API_URL}/fighters?q=${encodeURIComponent(name)}`;
-
-    return await apiRequest(url);
+    return apiRequest(
+        `/fighters?q=${encodeURIComponent(name)}`
+    );
 }
 
-
-// ============================================
-// ПРОФИЛЬ БОЙЦА
-// ============================================
 
 async function getUFCFighter(idOrSlug) {
-
-    const url =
-        `${API_URL}/fighters/${encodeURIComponent(idOrSlug)}`;
-
-    return await apiRequest(url);
+    return apiRequest(
+        `/fighters/${encodeURIComponent(idOrSlug)}`
+    );
 }
 
-
-// ============================================
-// ИСТОРИЯ БОЁВ
-// ============================================
 
 async function getFighterHistory(idOrSlug) {
-
-    const url =
-        `${API_URL}/fighters/${encodeURIComponent(idOrSlug)}/history`;
-
-    return await apiRequest(url);
+    return apiRequest(
+        `/fighters/${encodeURIComponent(idOrSlug)}/history`
+    );
 }
 
-
-// ============================================
-// СТАТИСТИКА
-// ============================================
 
 async function getFighterStats(idOrSlug) {
-
-    const url =
-        `${API_URL}/fighters/${encodeURIComponent(idOrSlug)}/stats`;
-
-    return await apiRequest(url);
+    return apiRequest(
+        `/fighters/${encodeURIComponent(idOrSlug)}/stats`
+    );
 }
 
-
-// ============================================
-// РЕЙТИНГИ
-// ============================================
 
 async function getUFCRankings() {
-
-    const url =
-        `${API_URL}/rankings`;
-
-    return await apiRequest(url);
+    return apiRequest(`/rankings`);
 }
 
 
-// ============================================
-// БЛИЖАЙШИЕ СОБЫТИЯ
-// ============================================
-
 async function getUpcomingEvents() {
-
-    const url =
-        `${API_URL}/events`;
-
-    return await apiRequest(url);
+    return apiRequest(`/events`);
 }

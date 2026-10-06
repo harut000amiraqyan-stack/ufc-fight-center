@@ -45,7 +45,7 @@ async function searchFighter() {
             </h2>
 
             <p>
-                Ищем бойца UFC...
+                Ищем бойцов UFC...
             </p>
 
         </div>
@@ -78,51 +78,79 @@ async function searchFighter() {
             return;
         }
 
-        const fighter =
-            fighters[0];
+
+        // ====================================
+        // ПОКАЗЫВАЕМ ВСЕХ НАЙДЕННЫХ БОЙЦОВ
+        // ====================================
 
         result.innerHTML = `
 
-            <div class="fighter-card">
+            <div class="fighter-search-results">
 
                 <h2>
-                    ${escapeHTML(
-                        fighter.name ||
-                        "Без имени"
-                    )}
+                    НАЙДЕННЫЕ БОЙЦЫ
                 </h2>
 
-                ${
-                    fighter.nickname
-                    ?
-                    `
-                    <h3>
-                        "${escapeHTML(
-                            fighter.nickname
-                        )}"
-                    </h3>
-                    `
-                    :
-                    ""
-                }
+                ${fighters.map(
+                    fighter => {
 
-                <p>
-                    <strong>
-                        Страна:
-                    </strong>
+                        const slug =
+                            fighter.slug ||
+                            fighter.id ||
+                            "";
 
-                    ${escapeHTML(
-                        fighter.nationality ||
-                        "Нет данных"
-                    )}
-                </p>
+                        return `
 
-                <button
-                    class="fighter-button"
-                    onclick="loadFighterProfile('${escapeAttribute(fighter.slug)}')"
-                >
-                    ОТКРЫТЬ ПРОФИЛЬ
-                </button>
+                            <div class="fighter-card">
+
+                                <h2>
+                                    ${escapeHTML(
+                                        fighter.name ||
+                                        "Без имени"
+                                    )}
+                                </h2>
+
+
+                                ${
+                                    fighter.nickname
+                                    ?
+                                    `
+                                    <h3>
+                                        "${escapeHTML(
+                                            fighter.nickname
+                                        )}"
+                                    </h3>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                <p>
+                                    <strong>
+                                        Страна:
+                                    </strong>
+
+                                    ${escapeHTML(
+                                        fighter.nationality ||
+                                        "Нет данных"
+                                    )}
+                                </p>
+
+
+                                <button
+                                    class="fighter-button"
+                                    onclick="loadFighterProfile('${escapeAttribute(slug)}')"
+                                >
+                                    ОТКРЫТЬ ПРОФИЛЬ
+                                </button>
+
+                            </div>
+
+                        `;
+
+                    }
+                ).join("")}
 
             </div>
 
@@ -593,6 +621,7 @@ async function loadFighterProfile(slug) {
 
         await showHistory(slug);
 
+
     } catch (error) {
 
         console.error(
@@ -766,29 +795,28 @@ async function showHistory(slug) {
                             fight.opponent?.name ||
                             "Неизвестно";
 
-                        const event =
-                            fight.event?.title ||
-                            fight.event_name ||
-                            fight.event?.name ||
-                            "UFC";
 
                         const date =
                             fight.date ||
                             fight.event?.starts_at ||
                             "";
 
+
                         const status =
                             fight.status ||
                             "unknown";
+
 
                         const method =
                             fight.method_normalized ||
                             fight.method ||
                             "";
 
+
                         const round =
                             fight.round ||
                             "";
+
 
                         const time =
                             fight.time ||
@@ -802,29 +830,40 @@ async function showHistory(slug) {
                         if (
                             status === "win"
                         ) {
+
                             statusClass =
                                 "fight-win";
+
                         }
+
 
                         if (
                             status === "loss"
                         ) {
+
                             statusClass =
                                 "fight-loss";
+
                         }
+
 
                         if (
                             status === "draw"
                         ) {
+
                             statusClass =
                                 "fight-draw";
+
                         }
+
 
                         if (
                             status === "no_contest"
                         ) {
+
                             statusClass =
                                 "fight-nc";
+
                         }
 
 
@@ -853,19 +892,6 @@ async function showHistory(slug) {
                                     )}
 
                                 </h3>
-
-
-                                <p>
-
-                                    <strong>
-                                        Турнир:
-                                    </strong>
-
-                                    ${escapeHTML(
-                                        event
-                                    )}
-
-                                </p>
 
 
                                 ${
@@ -1032,6 +1058,7 @@ async function loadUpcomingFights() {
         const result =
             await getUpcomingEvents();
 
+
         console.log(
             "UFC EVENTS:",
             result
@@ -1057,6 +1084,7 @@ async function loadUpcomingFights() {
             `;
 
             return;
+
         }
 
 

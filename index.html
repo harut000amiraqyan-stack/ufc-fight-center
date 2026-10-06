@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UFC Fight Center</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        UFC <span>FIGHT CENTER</span>
+    </div>
+
+    <nav>
+        <a href="#fights">Бои</a>
+        <a href="#fighters">Бойцы</a>
+        <a href="#history">История</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <!-- ГЛАВНЫЙ БЛОК -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="small-title">
+                UFC FIGHT CENTER
+            </p>
+
+            <h1>
+                БЛИЖАЙШИЙ БОЙ
+            </h1>
+
+            <div class="main-fight">
+
+                <div class="fighter">
+                    <div class="fighter-name">
+                        ALLEN
+                    </div>
+                </div>
+
+                <div class="vs">
+                    VS
+                </div>
+
+                <div class="fighter">
+                    <div class="fighter-name">
+                        DUNCAN
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="fight-date">
+                10 ОКТЯБРЯ 2026
+            </div>
+
+            <div id="countdown" class="countdown">
+                Загрузка...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- БЛИЖАЙШИЕ БОИ -->
+
+   <section id="nextFight">
+
+    <h2>
+        БЛИЖАЙШИЙ БОЙ
+    </h2>
+
+    <div class="next-fight-card">
+
+        <h2 id="nextFightTitle">
+            Загрузка...
+        </h2>
+
+        <div id="nextFightFighters">
+            Загрузка...
+        </div>
+
+        <div id="nextFightDate">
+            Загрузка...
+        </div>
+
+        <div id="countdown">
+            Загрузка...
+        </div>
+
+    </div>
+
+</section>
+<section id="fights">
+
+    <h2>
+        БЛИЖАЙШИЕ UFC СОБЫТИЯ
+    </h2>
+
+    <div id="fightsContainer">
+
+        <div class="fight-card">
+            Загрузка...
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- ПОИСК БОЙЦА -->
+
+    <section id="fighters" class="section">
+
+        <h2>
+            ПОИСК БОЙЦА
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                id="fighterSearch"
+                type="text"
+                placeholder="Введите имя бойца..."
+            >
+
+            <button onclick="searchFighter()">
+                Найти
+            </button>
+
+        </div>
+
+        <div id="fighterResult">
+
+        </div>
+
+    </section>
+
+
+    <!-- ИСТОРИЯ -->
+
+    <section id="history" class="section">
+
+        <h2>
+            ИСТОРИЯ БОЁВ
+        </h2>
+
+        <div id="historyContent">
+
+            <p>
+                Найдите бойца, чтобы посмотреть историю его боёв.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        UFC Fight Center © 2026
+    </p>
+
+</footer>
+
+
+<script src="api.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
